@@ -106,6 +106,8 @@ static int new_perf_level;
 static struct ion_client *display_iclient;
 static struct mdp4_iommu_pipe_info mdp_iommu[MDP4_MIXER_MAX][OVERLAY_PIPE_MAX];
 
+static int hdmi_prim_display = 0; /* don't use hdmi primary display */
+
 int mdp4_overlay_iommu_map_buf(int mem_id,
 	struct mdp4_overlay_pipe *pipe, unsigned int plane,
 	unsigned long *start, unsigned long *len,
@@ -3023,6 +3025,11 @@ int mdp4_overlay_play_wait(struct fb_info *info, struct msmfb_overlay_data *req)
 		return -EPERM;
 
 	pipe = mdp4_overlay_ndx2pipe(req->id);
+
+	if (!pipe) {
+		mdp4_stat.err_play++;
+		return -ENODEV;
+	}
 
 	if (mutex_lock_interruptible(&mfd->dma->ov_mutex))
 		return -EINTR;
