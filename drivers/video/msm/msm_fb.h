@@ -191,6 +191,7 @@ struct msm_fb_data_type {
 	u32 use_ov0_blt, ov0_blt_state;
 	u32 use_ov1_blt, ov1_blt_state;
 	u32 writeback_state;
+	bool writeback_active_cnt;
 #if defined CONFIG_FB_MSM_SELF_REFRESH
 	struct workqueue_struct *self_refresh_wq;
 	struct work_struct self_refresh_work;
