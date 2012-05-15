@@ -37,6 +37,7 @@
 #include <mach/debug_display.h>
 
 u32 dsi_irq;
+u32 esc_byte_ratio;
 
 static boolean tlmm_settings = FALSE;
 
@@ -189,6 +190,7 @@ static int mipi_dsi_on(struct platform_device *pdev)
 	fbi = mfd->fbi;
 	var = &fbi->var;
 	pinfo = &mfd->panel_info;
+	esc_byte_ratio = pinfo->mipi.esc_byte_ratio;
 
 	PR_DISP_INFO("%s+\n", __func__);
 	if (mipi_dsi_pdata && mipi_dsi_pdata->dsi_power_save)
