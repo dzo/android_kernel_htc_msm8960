@@ -330,7 +330,7 @@ static void mdp4_dsi_video_wait4dmap(int cndx)
 	wait_for_completion(&vctrl->dmap_comp);
 }
 
-
+#if 0 /* don't use continuous splash */
 static void mdp4_dsi_video_wait4dmap_done(int cndx)
 {
 	unsigned long flags;
@@ -349,7 +349,7 @@ static void mdp4_dsi_video_wait4dmap_done(int cndx)
 	mdp4_dsi_video_wait4dmap(cndx);
 	vsync_irq_disable(INTR_DMA_P_DONE, MDP_DMAP_TERM);
 }
-
+#endif
 
 static void mdp4_dsi_video_wait4ov(int cndx)
 {
@@ -514,12 +514,15 @@ int mdp4_dsi_video_on(struct platform_device *pdev)
 		pipe = vctrl->base_pipe;
 	}
 
+#if 0 /* dont use continuous splash */
 	if (!(mfd->cont_splash_done)) {
 		mfd->cont_splash_done = 1;
+	{
 		mdp4_dsi_video_wait4dmap_done(0);
 		MDP_OUTP(MDP_BASE + DSI_VIDEO_BASE, 0);
 		mipi_dsi_controller_cfg(0);
 	}
+#endif
 
 	pipe->src_height = fbi->var.yres;
 	pipe->src_width = fbi->var.xres;
