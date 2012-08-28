@@ -927,7 +927,9 @@ static void msmfb_onchg_suspend(struct early_suspend *h)
 /*#endif*/
 	MSM_FB_INFO("%s starts.\n", __func__);
 	msm_fb_suspend_sub(mfd);
+#if 0 /* HTC */
 	mdp_suspended = true;
+#endif
 	MSM_FB_INFO("%s is done.\n", __func__);
 }
 
@@ -938,7 +940,9 @@ static void msmfb_onchg_resume(struct early_suspend *h)
 
 	MSM_FB_INFO("%s starts.\n", __func__);
 	msm_fb_resume_sub(mfd);
+#if 0 /* HTC */
 	mdp_suspended = false;
+#endif
 	MSM_FB_INFO("%s is done.\n", __func__);
 }
 #endif /* CONFIG_HTC_ONMODE_CHARGING */
