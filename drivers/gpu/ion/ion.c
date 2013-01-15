@@ -418,8 +418,8 @@ struct ion_handle *ion_alloc(struct ion_client *client, size_t len,
 		if (!((1 << heap->type) & client->heap_mask))
 			continue;
 		/* if the caller didn't specify this heap type */
-		if (!((1 << heap->id) & flags))
-			continue;
+//		if (!((1 << heap->id) & flags))
+//			continue;
 		/* Do not allow un-secure heap if secure is specified */
 		if (secure_allocation && (heap->type != ION_HEAP_TYPE_CP))
 			continue;
